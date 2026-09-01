@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XXX</title>
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/128/16172/16172572.png">
+
+    <style>
+        :root {
+            --c1: #1D0515;
+            --c2: #350616;
+            --c3: #550816;
+            --c4: #800714;
+        }
+
+        ::selection {
+            background: #5f050e;
+            color: white;
+        }
+
+        ::-webkit-selection {
+            background: #800714;
+            color: white;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI';
+            background: var(--c1);
+            color: #fff;
+            padding-top: 70px;
+            /* header yüksekliğine göre ayarla */
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;
+            background: var(--c2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            color: var(--c4);
+            font-weight: bold;
+        }
+
+        nav a {
+            margin: 0 10px;
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--c4);
+        }
+
+        input {
+            padding: 6px;
+            border: none;
+            border-radius: 5px;
+            background: var(--c3);
+            color: #fff;
+        }
+
+        .banner {
+            height: 300px;
+            overflow: hidden;
+            margin-top: -13px;
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .section {
+            padding: 20px;
+            position: relative;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            cursor: grab;
+            user-select: none;
+
+
+        }
+
+        .row:active {
+            cursor: grabbing;
+        }
+
+        .row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            min-width: 180px;
+            background: var(--c2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card img {
+            pointer-events: none;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 260px;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .card:hover .overlay {
+            opacity: 1;
+        }
+
+        .card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 8px;
+        }
+
+        .title {
+            font-size: 14px;
+        }
+
+        .card span {
+            cursor: pointer;
+            font-size: 18px;
+            margin-right: 5px;
+            transition: 0.2s;
+        }
+
+        .card span:hover {
+            transform: scale(1.2);
+        }
+
+        .stars span {
+            font-size: 20px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .stars span:hover,
+        .stars span.active {
+            color: gold;
+            transform: scale(1.2);
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 28px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .rightArrow {
+            right: 0;
+        }
+
+        footer {
+            background: var(--c2);
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* 📱 MOBİL */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .logo {
+                text-align: center;
+                font-size: 18px;
+            }
+
+            nav {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            input {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+
+            nav a {
+                margin: 0;
+                font-size: 14px;
+            }
+
+            input {
+                width: 100%;
+            }
+
+            .banner {
+                height: 180px;
+            }
+
+            .section {
+                padding: 15px 10px;
+            }
+
+            .row {
+                gap: 10px;
+            }
+
+            .card {
+                min-width: 130px;
+            }
+
+            .card img {
+                height: 180px;
+            }
+
+            .overlay {
+                height: 180px;
+            }
+
+            .title {
+                font-size: 12px;
+            }
+
+            .stars span {
+                font-size: 16px;
+            }
+
+            .arrow {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">XXX</div>
+        <nav>
+            <a href="#film">Film</a>
+            <a href="#dizi">Dizi</a>
+            <a href="#marvel">Marvel</a>
+            <a href="#anime">Anime</a>
+        </nav>
+        <input placeholder="Ara..." onkeyup="search(this.value)">
+    </header>
+
+    <div class="banner">
+        <img src="https://i.pinimg.com/originals/6b/8b/9d/6b8b9d3c4c75eaafb73285ddd310a346.gif">
+    </div>
+
+    <div class="section">
+        <h2>Favoriler</h2>
+        <div class="row" id="favRow"></div>
+    </div>
+    <div class="section">
+        <h2>✔ İzlenecekler</h2>
+        <div class="row" id="watchedRow"></div>
+    </div>
+
+    <div class="section" id="film">
+        <h2>Filmler</h2>
+        <div class="arrow left" onclick="scrollRow('filmRow',-300)">‹</div>
+        <div class="row" id="filmRow"></div>
+        <div class="arrow rightArrow" onclick="scrollRow('filmRow',300)">›</div>
+    </div>
+
+    <div class="section" id="dizi">
+        <h2>Diziler</h2>
+        <div class="arrow left" onclick="scrollRow('diziRow',-300)">‹</div>
+        <div class="row" id="diziRow"></div>
+        <div class="arrow rightArrow" onclick="scrollRow('diziRow',300)">›</div>
+    </div>
+
+    <div class="section" id="marvel">
+        <h2>Marvel</h2>
+        <div class="arrow left" onclick="scrollRow('marvelRow',-300)">‹</div>
+        <div class="row" id="marvelRow"></div>
+        <div class="arrow rightArrow" onclick="scrollRow('marvelRow',300)">›</div>
+    </div>
+
+    <div class="section" id="anime">
+        <h2>Anime</h2>
+        <div class="arrow left" onclick="scrollRow('animeRow',-300)">‹</div>
+        <div class="row" id="animeRow"></div>
+        <div class="arrow rightArrow" onclick="scrollRow('animeRow',300)">›</div>
+    </div>
+
+    <footer>© 2026 vento</footer>
+
+    <script>
+        const data = [
+            // { title: "", type: "", img: "" },//
+            //DİZİ//
+            { title: "Supernatural", type: "dizi", img: "https://i.pinimg.com/736x/67/e8/d1/67e8d1e989c4a956c25d6b5afd76aef9.jpg" },
+            { title: "Stranger Things", type: "dizi", img: "https://i.pinimg.com/736x/e7/0d/39/e70d39ab29cd35545fa726de0b7414fa.jpg" },
+            { title: "Teen Wolf", type: "dizi", img: "https://i.pinimg.com/736x/28/68/b7/2868b7bcb784ad2db1e3b0442a0ac157.jpg" },
+            { title: "The Originals", type: "dizi", img: "https://i.pinimg.com/1200x/b9/e7/7c/b9e77c629f502b18110ed52aaf3bdd79.jpg" },
+            { title: "The Vampire Diearis", type: "dizi", img: "https://i.pinimg.com/736x/fd/69/51/fd695156e0e5fdfaf267c91e44e57708.jpg" },
+            { title: "Legacies", type: "dizi", img: "https://i.pinimg.com/736x/8a/66/2e/8a662ee0969e0ad9954c287e2a500283.jpg" },
+            { title: "Shadowhunders", type: "dizi", img: "https://i.pinimg.com/1200x/8b/1b/ca/8b1bca97c821acebe2747128a1b88fdf.jpg" },
+            { title: "Brookly Nine Nine", type: "dizi", img: "https://i.pinimg.com/736x/e1/c0/6e/e1c06eb955ce6c4045c5f94c56179399.jpg" },
+            { title: "Friends", type: "dizi", img: "https://i.pinimg.com/736x/b9/9a/96/b99a968f4da38424b67a4d639fa2adc8.jpg" },
+            { title: "Prisoner", type: "dizi", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFTKDgReNKKrzvVJDJTdybDrWIqIIj7wDftMORIoFOBy-47e3PonY8DHAL&s=10" },
+            { title: "Off Campus", type: "dizi", img: "https://i.pinimg.com/736x/f7/d4/bd/f7d4bd91ecee5036a46ed96a57ea16f3.jpg" },
+            { title: "Proud", type: "dizi", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9XU9ykegi150De2bYWokgWa0w90Hbf6GdhmJLyDN_YV5PpDYxWlRQRpu3&s=10" },
+            { title: "Sweat Home", type: "dizi", img: "https://i.pinimg.com/736x/b6/7d/de/b67ddebb1c6fa53cea4312e5c09e89a9.jpg" },
+            { title: "The Uncanny Counter", type: "dizi", img: "https://i.pinimg.com/736x/9f/f4/dc/9ff4dceeee2e22326e1d4ca9a54261dd.jpg" },
+            { title: "Arcane", type: "dizi", img: "https://i.pinimg.com/736x/bf/2a/2d/bf2a2d46ac4ecdf2c760fa5a19e534bf.jpg" },
+            { title: "Dark Angel", type: "dizi", img: "https://i.pinimg.com/736x/2a/ab/77/2aab77e532f9fc3e0ffa1008c4081961.jpg" },
+            { title: "Outer Banks", type: "dizi", img: "https://i.pinimg.com/736x/8c/06/26/8c0626ed91708721f196015e96fec789.jpg" },
+            { title: "Game Of Thronse", type: "dizi", img: "https://i.pinimg.com/1200x/5a/9d/2e/5a9d2e897d587941d610a05e6af4ba0f.jpg" },
+            { title: "House Of Dragon", type: "dizi", img: "https://i.pinimg.com/736x/9b/ba/58/9bba58250d91dfc906d3846511179064.jpg" },
+            { title: "A Seven Knight Kingdom", type: "dizi", img: "https://i.pinimg.com/736x/fe/00/d0/fe00d036594107f91e1d1e91435c440d.jpg" },
+            { title: "The Boys", type: "dizi", img: "https://i.pinimg.com/1200x/db/36/47/db3647a72eeb789c66f190ed54ad2a64.jpg" },
+            { title: "The Mentalist", type: "dizi", img: "https://i.pinimg.com/1200x/9b/16/79/9b167911cc958a63dec598e3095adacf.jpg" },
+            { title: "Header Rivalry", type: "dizi", img: "https://i.pinimg.com/736x/96/2c/bf/962cbf508d2af9acc6d0a8cfd5a615b5.jpg" },
+            { title: "Wednesday ", type: "dizi", img: "https://i.pinimg.com/1200x/47/1b/cd/471bcd0d2ebb45c3c5a0ba03e59b07e0.jpg" },
+            { title: "Persona", type: "dizi", img: "https://i.pinimg.com/736x/5e/f2/76/5ef276dcca4723fd81029edadf90dc3f.jpg" },
+            { title: "Dexter", type: "dizi", img: "https://i.pinimg.com/736x/76/40/9b/76409b874237558b31687d93e33f52cf.jpg" },
+            { title: "Skam XX", type: "dizi", img: "https://i.pinimg.com/1200x/c3/e1/df/c3e1df2e1ff946f4ab40565206c1c6df.jpg" },
+            { title: "Elite", type: "dizi", img: "https://i.pinimg.com/736x/d5/e8/de/d5e8deebad536a49b3ce5ee4a98abf96.jpg" },
+            { title: "Riverdale", type: "dizi", img: "https://i.pinimg.com/736x/19/dd/85/19dd8577bbdbff86f219ecc657fd0df5.jpg" },
+            { title: "I Am Not Okey With This", type: "dizi", img: "https://i.pinimg.com/736x/e5/03/9e/e5039ef8eaa9d0b162be2e710284958e.jpg" },
+            { title: "Deadly Class", type: "dizi", img: "https://i.pinimg.com/736x/9a/ba/f2/9abaf2c6f825b56ac14f1cbc76153b44.jpg" },
+            { title: "2Gether", type: "dizi", img: "https://i.pinimg.com/736x/e4/a9/08/e4a9087846b357e98eddb7341bde92ea.jpg" },
+            { title: "Aşk 101", type: "dizi", img: "https://i.pinimg.com/736x/d1/74/60/d174604edc9372330d3f40bfd084784d.jpg" },
+            { title: "Pera Palasta Gece Yarısı", type: "dizi", img: "https://i.pinimg.com/736x/f9/8a/3f/f98a3fe8325bba22f3cbc37559f93cca.jpg" },
+            { title: "masumiyet Müzesi", type: "dizi", img: "https://i.pinimg.com/736x/23/fa/54/23fa5489ce7a7512798bb43a19e4079c.jpg" },
+
+            //FİLM//
+            { title: "Interstellar", type: "film", img: "https://i.pinimg.com/736x/aa/9c/82/aa9c82664f912846879ecaeb5d924d64.jpg" },
+            { title: "Inception", type: "film", img: "https://i.pinimg.com/736x/0b/e1/da/0be1dafba6a85a2b21dbb27102fd4d3b.jpg" },
+            { title: "V For Ventetta", type: "film", img: "https://i.pinimg.com/vwebpf/1200x/46/c5/4d/46c54d07add890254af19d3e20e16178.webp" },
+            { title: "Atonement", type: "film", img: "https://i.pinimg.com/736x/ef/63/bb/ef63bb427062175a523a0f7eec31d344.jpg" },
+            { title: "How To Lose a Guy in 10 Days", type: "film", img: "https://i.pinimg.com/736x/8b/a2/c9/8ba2c99dab320c3ef28f445d2bedb94f.jpg" },
+            { title: "Whiplash", type: "film", img: "https://i.pinimg.com/736x/f6/dd/d9/f6ddd907657e80b41e51bbd417ea7dae.jpg" },
+            { title: "Se7en", type: "film", img: "https://i.pinimg.com/1200x/2a/d3/b5/2ad3b5c9c290fabca92f11fbf52594e4.jpg" },
+            { title: "Uncharted", type: "film", img: "https://i.pinimg.com/1200x/8c/c8/5b/8cc85b6cedb922dfbcf194199bab9383.jpg" },
+            { title: "Bayan Peregrine'nin Tuhaf Çocukları", type: "film", img: "https://i.pinimg.com/1200x/09/4c/9f/094c9f1ab8a1b5ce1cb8c6daff227a90.jpg" },
+            { title: "Oppenheimer", type: "film", img: "https://i.pinimg.com/736x/06/c8/70/06c87059cd71c7b46d8d5e25d8aab08b.jpg" },
+            { title: "My Bloody Valentine", type: "film", img: "https://upload.wikimedia.org/wikipedia/tr/6/60/Sevgililer_G%C3%BCn%C3%BC_Katliam%C4%B1_3D_-_My_Bloody_Valentine_3D.jpg" },
+            { title: "Devour", type: "film", img: "https://i.pinimg.com/1200x/9e/3c/cc/9e3ccce1053325726b6caf7f77966f25.jpg" },
+            { title: "Damsel", type: "film", img: "https://i.pinimg.com/1200x/b0/ac/b9/b0acb9dc4a10922d8510673560cfbcf2.jpg" },
+            { title: "Zindan Adası", type: "film", img: "https://i.pinimg.com/736x/33/58/5c/33585c3e33595e3ab7cdd54f86dc3345.jpg" },
+            { title: "Arrival", type: "film", img: "https://i.pinimg.com/736x/f3/b8/f5/f3b8f5dda14e2e5c3ce9e4ae9a3fe1ce.jpg" },
+            { title: "Ready Or Not", type: "film", img: "https://i.pinimg.com/736x/0d/92/21/0d92218bd0479a9c834c79318dc62543.jpg" },
+            { title: "Lucy", type: "film", img: "https://i.pinimg.com/736x/32/d7/96/32d79626adf6b5ed37e4c355ff7ae855.jpg" },
+            { title: "Fight Club", type: "film", img: "https://i.pinimg.com/736x/4b/5c/cb/4b5ccbe420a9061ea4564e82e0261548.jpg" },
+            { title: "Fantastik Canavarlar", type: "film", img: "https://i.pinimg.com/1200x/28/bd/dd/28bddd797b2430491d3eaee89d1c7f47.jpg" },
+            { title: "Harry Potter", type: "film", img: "https://i.pinimg.com/736x/53/ed/d3/53edd39303ddae10c72993578dcc2420.jpg" },
+            { title: "Alaca Karanlık", type: "film", img: "https://i.pinimg.com/736x/38/84/e7/3884e72790b0bffca984adfca2452b24.jpg" },
+            { title: "Maleficent", type: "film", img: "https://i.pinimg.com/736x/02/26/ef/0226efc19731cd6eb998e0dd01d70b8d.jpg" },
+            { title: "Curella", type: "film", img: "https://i.pinimg.com/736x/03/4c/3b/034c3b71c1bc4ad027203230d0514eaa.jpg" },
+            { title: "Enole Holmes", type: "film", img: "https://i.pinimg.com/736x/c3/81/84/c38184255d937f92c6ac4ed21c9a95d0.jpg" },
+            { title: "Five Feet Apart", type: "film", img: "https://i.pinimg.com/736x/3b/ea/c1/3beac1c43355f71ee2dc4d1e98945698.jpg" },
+            { title: "Labirent", type: "film", img: "https://i.pinimg.com/736x/67/a6/62/67a662ed45e7cdf9db55cc3ac736f744.jpg" },
+            { title: "I Am Dragon", type: "film", img: "https://i.pinimg.com/1200x/f6/53/80/f653804cccfe1ef3ed3712ed0f0e0c7c.jpg" },
+            { title: "Belive Me", type: "film", img: "https://i.pinimg.com/736x/fb/d2/27/fbd227ec4186d01541e24b46cf4f9073.jpg" },
+            { title: "The Basketball Diaries", type: "film", img: "https://i.pinimg.com/736x/09/0f/7b/090f7b7e83d8a90b4d75b7a9036f4d4f.jpg" },
+            { title: "Ejderhanı Nasıl Eğitirsin", type: "film", img: "https://i.pinimg.com/736x/86/aa/7e/86aa7e1a9884081b546e25207a5212ab.jpg" },
+            { title: "Cennetimden Bakarken", type: "film", img: "https://i.pinimg.com/736x/5a/8e/4e/5a8e4e9b8b877079d4e4547aaa6859aa.jpg" },
+            { title: "Zombi Ekspreksi", type: "film", img: "https://i.pinimg.com/736x/ec/a1/cb/eca1cb81bb34288c6766839783c1aa20.jpg" },
+            { title: "Anna And The Apocalypse", type: "film", img: "https://i.pinimg.com/736x/bf/b9/cb/bfb9cb1506a15567e8d2054f2a4a9786.jpg" },
+            { title: "Aşk Ve Canavarlar", type: "film", img: "https://i.pinimg.com/736x/70/39/32/703932a89b96c4891942ce7837478dc2.jpg" },
+            { title: "Uyumsuz", type: "film", img: "https://i.pinimg.com/736x/80/2b/bb/802bbb380adbaa3ce0f8ea8d216fa7df.jpg" },
+            { title: "After", type: "film", img: "https://i.pinimg.com/736x/f4/7c/7e/f47c7e8fb7e2899f90e40691aff45509.jpg" },
+            { title: "I Never Have I Ever", type: "film", img: "https://i.pinimg.com/1200x/c8/77/90/c87790ecac7fa7c08325f00a5e8975d7.jpg" },
+            { title: "Sanal Ülke", type: "film", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPt5FaTInA0L4SOMbu_bCAshCy46tFC1wozg&s" },
+            { title: "Ready Player One", type: "film", img: "https://i.pinimg.com/vwebpf/1200x/0f/23/a3/0f23a37c9aaec824eeb8d1963879242c.webp" },
+            { title: "5lbs Of Pressure ", type: "film", img: "https://i.pinimg.com/736x/e5/45/cf/e545cf53d4300053851513732783d8dd.jpg" },
+            { title: "Me Before You", type: "film", img: "https://i.pinimg.com/736x/31/e7/51/31e75177ab1cb68962d8cc4cbc4ef8d7.jpg" },
+            { title: "Yeşil Yol", type: "film", img: "https://i.pinimg.com/736x/50/46/e1/5046e1af0799b79f70a3783e636ba4d8.jpg" },
+            { title: "Kalplerimiz Bir", type: "film", img: "https://i.pinimg.com/736x/5e/e3/ea/5ee3ea3b1c2055047a427fe6229b5bee.jpg" },
+            { title: "Mavi En Sıcak Renktir", type: "film", img: "https://i.pinimg.com/736x/79/ec/71/79ec71e385ef9ef3c48117751a8a172a.jpg" },
+            { title: "Göz Yaşı Ustası", type: "film", img: "https://i.pinimg.com/736x/bf/30/30/bf3030f8c2027c8a122f0a4e51a7ac0e.jpg" },
+
+            //MARVEL//
+            //film//
+            { title: "İlk Yenilmez: Kaptan Amerika", type: "marvel", img: "https://i.pinimg.com/736x/fe/f7/4c/fef74c53f8bc8407952e58c550ec9f4f.jpg" },
+            { title: "Kaptan Marvel", type: "marvel", img: "https://i.pinimg.com/736x/05/4b/66/054b66af2854aa8483daeb19b1718bc6.jpg" },
+            { title: "Iron Man", type: "marvel", img: "https://i.pinimg.com/1200x/d5/5e/f9/d55ef9d5da01ebde6ce6c84e68c41e75.jpg" },
+            { title: "Iron Man 2", type: "marvel", img: "https://i.pinimg.com/736x/29/1c/1b/291c1b443be1c471c5a85d9bf29cbcda.jpg" },
+            { title: "The Incredible Hulk", type: "marvel", img: "https://i.pinimg.com/736x/02/5b/1b/025b1bf3ffec96d6479b597ea552bd96.jpg" },
+            { title: "Thor", type: "marvel", img: "https://i.pinimg.com/736x/fc/f6/fd/fcf6fdadf335a2f7d524ac3acf528a3a.jpg" },
+            { title: "Avengers", type: "marvel", img: "https://i.pinimg.com/736x/bb/d4/ea/bbd4ea86ad884439876126a893944c3d.jpg" },
+            { title: "Iron Man 3", type: "marvel", img: "https://i.pinimg.com/1200x/f4/0a/21/f40a2169f06fe7aa38c927947e69e107.jpg" },
+            { title: "Thor: Karanlık Dünya", type: "marvel", img: "https://i.pinimg.com/736x/bd/c0/44/bdc0442da5e4a83800067d4b2472e5e6.jpg" },
+            { title: "Kaptan Amerika: Kış Askeri", type: "marvel", img: "https://i.pinimg.com/736x/91/c3/02/91c3021844da88ed6f3213d30112a94d.jpg" },
+            { title: "Galaksini Koruyucuları", type: "marvel", img: "https://i.pinimg.com/1200x/5a/78/75/5a7875ac6c9338c9dcbac68c36bb4bb4.jpg" },
+            { title: "Galaksinin Koruyucuları 2", type: "marvel", img: "https://i.pinimg.com/736x/b2/93/15/b2931537ee87d18c0c5758fa61190000.jpg" },
+            { title: "Avengers: Ultron Çağı", type: "marvel", img: "https://i.pinimg.com/736x/f8/14/4a/f8144ac690acf9baa8faecdb37189f10.jpg" },
+            { title: "Ant-Man", type: "marvel", img: "https://i.pinimg.com/1200x/b5/13/97/b51397ef3d7b6ae817f4b7ae857ea570.jpg" },
+            { title: "Kaptan Amerika: Kahramanların Savaşı", type: "marvel", img: "https://i.pinimg.com/736x/79/4d/10/794d103948a332c4bada10bb921dfadc.jpg" },
+            { title: "Black Widow", type: "marvel", img: "https://i.pinimg.com/736x/ef/4b/a9/ef4ba9d82b715f949959d814a9a9b69a.jpg" },
+            { title: "Spiderman:Eve Dönüş", type: "marvel", img: "https://i.pinimg.com/736x/cc/ee/e9/cceee9573d7355a7d40f81c9e9d49ae0.jpg" },
+            { title: "Black Panther", type: "marvel", img: "https://i.pinimg.com/1200x/1c/ef/f6/1ceff67baf46562642a6b852ef0a8b53.jpg" },
+            { title: "Doctor Strange", type: "marvel", img: "https://i.pinimg.com/1200x/bd/be/57/bdbe5773be1c1a59a18569f99705452c.jpg" },
+            { title: "Thor: Ragnarok", type: "marvel", img: "https://i.pinimg.com/1200x/16/5d/39/165d391974b0eabf27a3e90c12420d93.jpg" },
+            { title: "Ant-Man and the Wasp", type: "marvel", img: "https://i.pinimg.com/1200x/77/ee/07/77ee0776dfe05001bcb8e86fc6386702.jpg" },
+            { title: "Avengers: Infinity War", type: "marvel", img: "https://i.pinimg.com/1200x/83/d0/8c/83d08c728d0f96bf3c49c83fbd1931f5.jpg" },
+            { title: "Avengers: Endgame", type: "marvel", img: "https://i.pinimg.com/1200x/91/e8/b2/91e8b28b4cb04f5bd07d7fcd3bf08e16.jpg" },
+            { title: "Spiderman: Evden Uzakta", type: "marvel", img: "https://i.pinimg.com/736x/66/52/10/6652108a85b864b83d8511494748996f.jpg" },
+            { title: "Shang-Chi ve On Halka Efsanesi", type: "marvel", img: "https://i.pinimg.com/736x/e2/27/af/e227af5cb4e9a399b8d4419b535fc5b9.jpg" },
+            { title: "Eternals", type: "marvel", img: "https://i.pinimg.com/1200x/7e/34/7e/7e347e932645933c7a7f4bae241fcacb.jpg" },
+            { title: "Spiderman: Eve Dönüş Yok", type: "marvel", img: "https://i.pinimg.com/736x/5b/60/ca/5b60ca1b8b523ac35308c8bba3cb707f.jpg" },
+            { title: "Doctor Strange in The Multiverse Of Madness", type: "marvel", img: "https://i.pinimg.com/1200x/d5/8c/62/d58c623360285d953ffd6c68afc25d5e.jpg" },
+            { title: "Thor: Love and Thunder", type: "marvel", img: "https://i.pinimg.com/1200x/62/ea/f9/62eaf9ab61fe06441dca84b862a00d80.jpg" },
+            { title: "Black Panter: Wakanda Forever", type: "marvel", img: "https://i.pinimg.com/1200x/95/1d/9c/951d9c6b3dcfda275538c922f8f0cd2b.jpg" },
+            { title: "Ant-Man ve Wasp: Quantumania", type: "marvel", img: "https://i.pinimg.com/1200x/3b/f9/4e/3bf94e6f1fcdb57e5086429cf08f388a.jpg" },
+            { title: "Galaksinin Koruyucuları 3", type: "marvel", img: "https://i.pinimg.com/736x/e3/9c/fb/e39cfbcf74bee2f76d19c9636bc1e4f1.jpg" },
+            { title: "The Marvels", type: "marvel", img: "https://img-s1.onedio.com/id-69a0b65fcfb9dad3ba9ace70/rev-0/w-620/f-jpg/s-560006b8ef73b591d0386a669e4357ff163f573e.jpg" },
+            { title: "Thunderbolts*", type: "marvel", img: "https://i.pinimg.com/736x/69/d5/85/69d585d540f78ffd5a5ff6325046b74d.jpg" },
+
+            //dizi//
+            { title: "WandaVision", type: "marvel", img: "https://i.pinimg.com/1200x/15/ef/8b/15ef8b8a03d03d4498142f9baef28ae9.jpg" },
+            { title: "The Falcon and the Winter Soldier", type: "marvel", img: "https://i.pinimg.com/736x/4e/60/df/4e60dfb09ce2439c73fed8138f3f9db3.jpg" },
+            { title: "Loki", type: "marvel", img: "https://i.pinimg.com/736x/50/c2/6e/50c26e2f76a199c2165a9ec008c3951b.jpg" },
+            { title: "What If...?", type: "marvel", img: "https://tr.web.img2.acsta.net/c_310_420/pictures/19/07/23/11/25/0529801.jpg" },
+            { title: "Hawkeye", type: "marvel", img: "https://i.pinimg.com/1200x/8e/59/c5/8e59c5b44f818a32f17fe246e1f9fdb0.jpg" },
+            { title: "Moon Knight", type: "marvel", img: "https://i.pinimg.com/736x/a2/ff/d1/a2ffd16032100d884392045b410505bc.jpg" },
+            { title: "Ms Marvel", type: "marvel", img: "https://i.pinimg.com/736x/1b/02/a2/1b02a2c9beed708e4d0bc127e146814b.jpg" },
+            { title: "I Am Groot", type: "marvel", img: "https://i.pinimg.com/1200x/e6/20/e9/e620e9b0c11f72783ffa1aef7e144ed1.jpg" },
+            { title: "Secret Invasion", type: "marvel", img: "https://i.pinimg.com/736x/53/fb/96/53fb96c05d962404b3a41e22e77c08dc.jpg" },
+            { title: "Echo", type: "marvel", img: "https://i.pinimg.com/1200x/c7/62/db/c762dbdc390690cfce337101919d06b0.jpg" },
+            { title: "Agatha All Along", type: "marvel", img: "https://i.pinimg.com/1200x/be/c2/63/bec2633a7c6b61162210dc002de37f5c.jpg" },
+            { title: "Daredevil", type: "marvel", img: "https://i.pinimg.com/1200x/09/3e/17/093e1733d5cb25d0a03b35a0dd357a1d.jpg" },
+
+            //legal//
+            { title: "X Men", type: "marvel", img: "https://i.pinimg.com/736x/ed/2b/9e/ed2b9e4bbe39f0770ce4aaa7b56ba377.jpg" },
+            { title: "X Men 2", type: "marvel", img: "https://i.pinimg.com/736x/e2/b7/e1/e2b7e192c220d712c0b89c86b96c3b3c.jpg" },
+            { title: "X-Men: Son Direniş", type: "marvel", img: "https://i.pinimg.com/1200x/1c/9b/8b/1c9b8b06c0635d7f29b54459d2fb2cdc.jpg" },
+            { title: "X-Men: Başlangıç Wolverine", type: "marvel", img: "https://i.pinimg.com/736x/db/97/5d/db975d05b91aa5af031d3498921f4d28.jpg" },
+            { title: "X-Men: Birinci Sınıf", type: "marvel", img: "https://i.pinimg.com/1200x/e5/b5/a4/e5b5a41f3cd345b5a7b4badaba3c2302.jpg" },
+            { title: "The Wolverine", type: "marvel", img: "https://i.pinimg.com/1200x/0c/e3/87/0ce38739177d859647f767f48aad9138.jpg" },
+            { title: "X-Men: Geçmiş Günler Gelecek", type: "marvel", img: "https://i.pinimg.com/736x/de/c8/cf/dec8cf0c4764a7add6ad6214e745ff53.jpg" },
+            { title: "Deadpool", type: "marvel", img: "https://i.pinimg.com/736x/51/61/3e/51613e963017cc89584a586e3d41273b.jpg" },
+            { title: "X-Men: Kıyamet", type: "marvel", img: "https://i.pinimg.com/1200x/0f/a6/45/0fa645ab93d0e23677016890b2048bd4.jpg" },
+            { title: "Logan", type: "marvel", img: "https://i.pinimg.com/736x/bb/62/c3/bb62c356f53b6793a2abc2fb0627b2ba.jpg" },
+            { title: "Deadpool 2", type: "marvel", img: "https://i.pinimg.com/1200x/13/2e/88/132e8848588cd7c39cfcc1d5a7f6e1cd.jpg" },
+            { title: "X-Men Dark Phoenix", type: "marvel", img: "https://i.pinimg.com/1200x/9b/99/1b/9b991b1e1248b1c7b22e44b857340d5e.jpg" },
+            { title: "Yeni Mutantlar", type: "marvel", img: "https://i.pinimg.com/736x/5c/e1/a1/5ce1a1eb9e44d4c1024f4fd092056712.jpg" },
+            { title: "Deadpool & Wolverine", type: "marvel", img: "https://i.pinimg.com/736x/92/f1/b0/92f1b0cf6d98a46298d2bb75220cb41b.jpg" },
+
+            //ANİME//
+            { title: "Attack on Titan", type: "anime", img: "https://i.pinimg.com/1200x/0c/25/be/0c25be614595a6066e18fc72fe1669ab.jpg" },
+            { title: "My Hero Acedemia", type: "anime", img: "https://i.pinimg.com/736x/bd/c3/7c/bdc37c3ca82a8e5896b80a8ab07b49cb.jpg" },
+            { title: "SK8 The Infinity", type: "anime", img: "https://i.pinimg.com/1200x/81/c7/90/81c79060adad7edaeabe0b4a1f37e138.jpg" },
+            { title: "Jujutsu Kaisen", type: "anime", img: "https://i.pinimg.com/736x/49/8a/e6/498ae6d50e982ce113b27cc93c90e846.jpg" },
+            { title: "Avatar", type: "anime", img: "https://i.pinimg.com/736x/64/51/83/645183b2734938a86028b5da9b997e71.jpg" },
+            { title: "Kamisama Hajimemashita", type: "anime", img: "https://i.pinimg.com/736x/fb/54/43/fb54435c8624af5501bccec6c9c6d9ac.jpg" },
+            { title: "Saiki", type: "anime", img: "https://i.pinimg.com/736x/f9/c0/f3/f9c0f3c51e8c66869cd0bffe55633eda.jpg" },
+            { title: "Tokyo Revengers", type: "anime", img: "https://i.pinimg.com/736x/32/88/63/328863b0fa3f51cef839434fce62f6d0.jpg" },
+            { title: "Banana Fish", type: "anime", img: "https://i.pinimg.com/736x/94/b1/b0/94b1b0032c05bdc043a1d18a2894b7ff.jpg" },
+            { title: "Naruto", type: "anime", img: "https://i.pinimg.com/736x/05/20/95/05209578d20ec18d4aba21d2508c2a9e.jpg" },
+            { title: "Given", type: "anime", img: "https://i.pinimg.com/736x/58/51/f0/5851f08f3cee914bbd39eb043696ec3a.jpg" },
+            { title: "Owari No Seraph", type: "anime", img: "https://i.pinimg.com/736x/03/58/77/035877bed5f64c4c21314a088cec1d0c.jpg" },
+            { title: "Angel Of Death", type: "anime", img: "https://i.pinimg.com/1200x/a0/79/a3/a079a3bb1e8d4a7d30079ad9613e7f27.jpg" },
+            { title: "Demon Slayer", type: "anime", img: "https://i.pinimg.com/736x/a5/0b/4e/a50b4e3afa6be0a4183541acfb795b3b.jpg" },
+            { title: "Violet Evergarden", type: "anime", img: "https://i.pinimg.com/736x/11/43/3c/11433ce9ffbd1688f251ad29d6c0d91b.jpg" },
+            { title: "Stranger By The Beach", type: "anime", img: "https://i.pinimg.com/736x/eb/14/9a/eb149a798ebc77dcc6491848f8571b5c.jpg" },
+            { title: "Your Name", type: "anime", img: "https://i.pinimg.com/1200x/2a/6d/69/2a6d69cdcf5fccfa79b4cb9e4da1c04f.jpg" },
+            { title: "No.6", type: "anime", img: "https://i.pinimg.com/736x/ae/b4/3a/aeb43ab5a27b2f1b1b17186bf470c42b.jpg" },
+            { title: "Dororo", type: "anime", img: "https://i.pinimg.com/736x/18/70/67/187067b87efb4f1750f50435ea4ecbe7.jpg" },
+            { title: "Bungo Stray Dogs", type: "anime", img: "https://i.pinimg.com/736x/a8/bf/69/a8bf698bf3d9e8f605e3b9f4694fbc1d.jpg" },
+            { title: "Devilman Cry Baby", type: "anime", img: "https://i.pinimg.com/736x/85/b1/b9/85b1b9ccbfd683ca987053883158bf90.jpg" },
+            { title: "Haikyuu", type: "anime", img: "https://i.pinimg.com/1200x/f3/84/39/f38439787f3ea9e357d39c1ae12675c2.jpg" },
+            { title: "Kimi No Suizou Wo Tabetai", type: "anime", img: "https://i.pinimg.com/1200x/38/38/d6/3838d69b5e3983a610ff24a324ad1a9f.jpg" },
+            { title: "Doukyuusei", type: "anime", img: "https://i.pinimg.com/736x/77/6f/dc/776fdc6f0a73024420780558d0b33870.jpg" },
+            { title: "Child Of Kamiari Month", type: "anime", img: "https://i.pinimg.com/1200x/51/86/65/5186653beffd92b5f042c931663d3778.jpg" },
+            { title: "Sasaki To Miyano", type: "anime", img: "https://i.pinimg.com/1200x/bb/58/f5/bb58f57fd5413085319f25c02c00b5fc.jpg" },
+            { title: "Yürüyen Şato", type: "anime", img: "https://i.pinimg.com/736x/54/54/16/5454167a01ff739dc84f3763b4d2fdcc.jpg" },
+            { title: "Koe No Katachi", type: "anime", img: "https://i.pinimg.com/736x/04/11/9f/04119f256813a5fb9f23b324ca720741.jpg" },
+            { title: "The Seven Deadly Sins", type: "anime", img: "https://i.pinimg.com/736x/d8/34/21/d834212105fc47ca9daa584976a0b49b.jpg" },
+            { title: "Küçük deniz Kızı Ponyo", type: "anime", img: "https://i.pinimg.com/1200x/a6/ac/69/a6ac69ecbb39d7bf429f85ac81bc7a41.jpg" },
+            { title: "Avatar", type: "anime", img: "https://i.pinimg.com/736x/fd/e6/1c/fde61c7febb2f8f8ec16b3cd31e65c7f.jpg" },
+            { title: "Chainsaw Man", type: "anime", img: "https://i.pinimg.com/736x/de/8f/52/de8f52414e86a41879535b1fd2030db7.jpg" },
+            { title: "A Whisker Away", type: "anime", img: "https://i.pinimg.com/736x/7e/c7/70/7ec7702bbc5738815ce3705669df960e.jpg" },
+            { title: "Gökteki Kale", type: "anime", img: "https://i.pinimg.com/1200x/32/3a/71/323a715b8a2d21cfe5ea7ca905959e0f.jpg" },
+            { title: "Mushi-shi", type: "anime", img: "https://i.pinimg.com/736x/2f/4f/1b/2f4f1b7bfa7c298ddd056212b2b49d73.jpg" },
+        ];
+
+        let favs = JSON.parse(localStorage.getItem("favs")) || [];
+        let watched = JSON.parse(localStorage.getItem("watched")) || {};
+        let ratings = JSON.parse(localStorage.getItem("ratings")) || {};
+
+        function createCard(item) {
+            let stars = "";
+            for (let i = 0; i < 5; i++) {
+                stars += `<span onclick="rate('${item.title}',${i})">★</span>`;
+            }
+
+            return `
+<div class="card">
+<img src="${item.img}">
+<div class="overlay"></div>
+<div class="card-content">
+<div class="title">${item.title}</div>
+<div>
+<span onclick="toggleFav('${item.title}')">${favs.includes(item.title) ? "❤️" : "🤍"}</span>
+<span onclick="toggleWatched('${item.title}')">${watched[item.title] ? "✔" : "☐"}</span>
+</div>
+<div class="stars">${stars}</div>
+</div>
+</div>`;
+        }
+
+        function render(list = data) {
+            filmRow.innerHTML = "";
+            diziRow.innerHTML = "";
+            marvelRow.innerHTML = "";
+            animeRow.innerHTML = "";
+            favRow.innerHTML = "";
+            watchedRow.innerHTML = "";
+
+            list.forEach(item => {
+                if (item.type === "film") filmRow.innerHTML += createCard(item);
+                if (item.type === "dizi") diziRow.innerHTML += createCard(item);
+                if (item.type === "marvel") marvelRow.innerHTML += createCard(item);
+                if (item.type === "anime") animeRow.innerHTML += createCard(item);
+
+                if (favs.includes(item.title)) favRow.innerHTML += createCard(item);
+                if (watched[item.title]) watchedRow.innerHTML += createCard(item);
+            });
+
+            document.querySelectorAll(".card").forEach(card => {
+                let title = card.querySelector(".title").innerText;
+                let stars = card.querySelectorAll(".stars span");
+
+                if (ratings[title] !== undefined) {
+                    for (let i = 0; i <= ratings[title]; i++) {
+                        stars[i].classList.add("active");
+                    }
+                }
+            });
+        }
+
+        /* ⭐ DÜZELTİLEN KISIM */
+        function rate(t, i) {
+            if (ratings[t] === i) {
+                delete ratings[t]; // tekrar basınca sıfırla
+            } else {
+                ratings[t] = i;
+            }
+            localStorage.setItem("ratings", JSON.stringify(ratings));
+            render();
+        }
+
+        function toggleFav(t) {
+            favs.includes(t) ? favs = favs.filter(x => x != t) : favs.push(t);
+            localStorage.setItem("favs", JSON.stringify(favs));
+            render();
+        }
+
+        function toggleWatched(t) {
+            watched[t] = !watched[t];
+            localStorage.setItem("watched", JSON.stringify(watched));
+            render();
+        }
+
+        function search(v) {
+            v = v.toLowerCase();
+            render(data.filter(x => x.title.toLowerCase().includes(v)));
+        }
+
+        function scrollRow(id, a) {
+            const el = document.getElementById(id);
+
+            const maxScroll = el.scrollWidth - el.clientWidth;
+
+            // sağ ok
+            if (a > 0) {
+                if (el.scrollLeft >= maxScroll - 10) {
+                    el.scrollLeft = 0; // başa sar
+                } else {
+                    el.scrollLeft += a;
+                }
+            }
+
+            // sol ok
+            else {
+                if (el.scrollLeft <= 10) {
+                    el.scrollLeft = maxScroll; // sona git
+                } else {
+                    el.scrollLeft += a;
+                }
+            }
+        }
+        render();
+        document.querySelectorAll(".row").forEach(row => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            row.addEventListener("mousedown", (e) => {
+                isDown = true;
+                startX = e.pageX;
+                scrollLeft = row.scrollLeft;
+                row.style.cursor = "grabbing";
+            });
+
+            row.addEventListener("mouseup", () => {
+                isDown = false;
+                row.style.cursor = "grab";
+            });
+
+            row.addEventListener("mouseleave", () => {
+                isDown = false;
+                row.style.cursor = "grab";
+            });
+
+            row.addEventListener("mousemove", (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+
+                const walk = (e.pageX - startX) * 1.5; // hız
+                row.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
+
+</body>
+
+</html>
